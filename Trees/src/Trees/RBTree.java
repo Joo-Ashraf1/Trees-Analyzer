@@ -1,10 +1,20 @@
 package Trees;
 
+import Enums.Color;
+
+import static Enums.Color.Black;
+import static Enums.Color.Red;
+
 public class RBTree extends AbstractTree<RBNode> {
-    @Override
-    protected boolean isNil(RBNode node) {
-        return false;
+    protected final RBNode Nil=new RBNode(0);
+    public RBTree() {
+        Nil.color= Black;
+        Nil.left=Nil;
+        Nil.right=Nil;
+        Nil.parent=Nil;
+        root=Nil;
     }
+
 
     @Override
     public boolean insert(int val) {
@@ -19,5 +29,9 @@ public class RBTree extends AbstractTree<RBNode> {
     @Override
     public boolean contains(int val) {
         return false;
+    }
+    @Override
+    protected boolean isNil(RBNode node) {
+        return node == Nil;
     }
 }

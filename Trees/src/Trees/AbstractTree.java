@@ -1,8 +1,8 @@
 package Trees;
 
 public abstract class AbstractTree<N extends TreeNode<N>> implements TreeStructure {
-    int size;
-    N root;
+   protected int size;
+    protected N root;
     @Override
     public int size(){
         return this.size;
