@@ -2,12 +2,12 @@ package Trees;
 
 public class RBbalancer implements Balancer {
     @Override
-    public void insertFixUp(RB node) {
+    public void insertFixUp(RBNode node) {
 
     }
 
     @Override
-    public void deleteFixUp(RB node) {
+    public void deleteFixUp(RBNode node) {
 
     }
 }

@@ -2,10 +2,17 @@ package Trees;
 
 import Enums.Color;
 
+import static Enums.Color.Black;
+import static Enums.Color.Red;
+
 public class RBNode extends TreeNode<RBNode> {
-    Color color;
+    protected Color color; //will change it in its tree
+    public RBNode(Color color) {
+        super(0);
+        this.color = color;
+    }
     RBNode(int value) {
         super(value);
-        color=Color.black;
+        color=Black;
     }
 }
