@@ -27,12 +27,12 @@ public class RBTree extends AbstractTree<RBNode> {
             else return false;
         }
         RBNode z=new RBNode(val);
-        z.parent=x;
+        z.parent=y;
         if(y==Nil) root=z;
         else if(z.getValue()<y.getValue()) y.left=z;
         else y.right=z;
         z.color=Red;
-        insertFixUp(z);
+        InsertFixUp(z);
         size++;
         return true;
     }
@@ -81,7 +81,48 @@ public class RBTree extends AbstractTree<RBNode> {
             node.parent = res;
 
     }
-    private void InsertFixUp(RBNode node) {
-        System.out.println("I wanna sleep");
+    private void InsertFixUp(RBNode z) {
+        while(!isNil(z.parent)&&z.parent.color==Red) {
+            if(z.parent==z.parent.parent.left) {
+                RBNode uncle = z.parent.parent.right;
+                if(!isNil(uncle)&&uncle.color==Red) {
+                    uncle.color=Black;
+                    z.parent.color=Black;
+                    z.parent.parent.color=Red;
+                    z=z.parent.parent;
+                }
+                else if(z.parent.right==z) {
+                    z=z.parent;
+                    LeftRotation(z);
+                }
+                else{
+                    z.parent.color=Black;
+                    z.parent.parent.color=Red;
+                    RightRotation(z.parent.parent);
+                    break;
+                }
+
+            }
+            else {
+                RBNode uncle = z.parent.parent.left;
+                if (uncle.color == Red) {
+                    z.parent.color = Black;
+                    uncle.color = Black;
+                    z.parent.parent.color = Red;
+                    z = z.parent.parent;
+                }
+                else if (z == z.parent.left) {
+                    z = z.parent;
+                    RightRotation(z);
+                }
+                else {
+                    z.parent.color = Black;
+                    z.parent.parent.color = Red;
+                    LeftRotation(z.parent.parent);
+                }
+            }
+
+        }
+        root.color=Black;
     }
 }
