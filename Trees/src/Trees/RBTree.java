@@ -253,4 +253,11 @@ public class RBTree extends AbstractTree<RBNode> {
         else u.parent.right = v;
         v.parent = u.parent;
     }
+
+    public RBNode getNil() {
+        return Nil;
+    }
+    public RBNode getRoot() {
+        return root;
+    }
 }

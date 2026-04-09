@@ -1,0 +1,29 @@
+<configuration>
+
+    <!--
+        BENCHMARK MODE  → keep this file as-is (level=WARN)
+        DEVELOPMENT MODE → change root level to INFO or DEBUG
+    -->
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{20} — %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Tree operations: DEBUG level — silent during benchmarks -->
+    <logger name="Trees"     level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- Benchmark logger: INFO during dev, WARN during benchmarks -->
+    <logger name="Benchmark" level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- Root fallback -->
+    <root level="WARN">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
