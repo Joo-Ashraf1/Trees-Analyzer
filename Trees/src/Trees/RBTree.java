@@ -19,7 +19,7 @@ public class RBTree extends AbstractTree<RBNode> {
     @Override
     public boolean insert(int val) {
         RBNode x=root;
-        RBNode y=x;
+        RBNode y=Nil;
         while (x!=Nil) {
             y=x;
             if(x.getValue()<val) x=x.right;
@@ -200,13 +200,13 @@ public class RBTree extends AbstractTree<RBNode> {
         while(!isNil(z.parent)&&z.parent.color==Red) {
             if(z.parent==z.parent.parent.left) {
                 RBNode uncle = z.parent.parent.right;
-                if(!isNil(uncle)&&uncle.color==Red) {
+                if(uncle.color==Red) {
                     uncle.color=Black;
                     z.parent.color=Black;
                     z.parent.parent.color=Red;
                     z=z.parent.parent;
                 }
-                else if(z.parent.right==z) {
+                else if(z==z.parent.right) {
                     z=z.parent;
                     LeftRotation(z);
                 }
@@ -239,5 +239,12 @@ public class RBTree extends AbstractTree<RBNode> {
 
         }
         root.color=Black;
+    }
+    @Override
+    protected void transplant(RBNode u, RBNode v) {
+        if (isNil(u.parent)) root = v;
+        else if (u == u.parent.left) u.parent.left = v;
+        else u.parent.right = v;
+        v.parent = u.parent;
     }
 }
