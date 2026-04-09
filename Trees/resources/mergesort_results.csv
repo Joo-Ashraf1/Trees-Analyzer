@@ -1,0 +1,5 @@
+tree,distribution,operation,median_ns,mean_ns,std_ns
+MergeSort,Fully Random,SORT,10550200,11785940.00,3127355.41
+MergeSort,Nearly Sorted 1%,SORT,3503000,3494500.00,40701.99
+MergeSort,Nearly Sorted 5%,SORT,4151800,4125760.00,46404.03
+MergeSort,Nearly Sorted 10%,SORT,4753200,5523720.00,1585792.16
