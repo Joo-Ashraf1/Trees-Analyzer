@@ -5,7 +5,7 @@ import java.util.Random;
 public class nearlySorted extends abstractGenerator{
     @Override
     public int[] generate(int percentage) {
-        if(percentage<0||percentage>100) throw new IllegalArgumentException("Percentage must be in [0, 100], got: " + percentage);
+        if(percentage<0||percentage>100) throw new IllegalArgumentException("Percentaage must be in [0, 100], got: " + percentage);
         ;
         int[]result=new int[n];
         Random rand=new Random();
