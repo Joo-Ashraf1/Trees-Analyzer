@@ -5,6 +5,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BST extends AbstractTree<BSTNode>{
+    private static final boolean VALIDATE = Validator.VALIDATE;
 
 
 
@@ -22,6 +23,7 @@ public class BST extends AbstractTree<BSTNode>{
                     current.left = new BSTNode(val);
                     current.left.parent = current;
                     size++;
+                    if(VALIDATE) Validator.checkBST(root);
                     return true;
                 }
                 else{
@@ -33,12 +35,14 @@ public class BST extends AbstractTree<BSTNode>{
                     current.right = new BSTNode(val);
                     current.right.parent = current;
                     size++;
+                    if(VALIDATE) Validator.checkBST(root);
                     return true;
                 }
                 else{
                     current = current.right;
                 }
             }
+            if(VALIDATE) Validator.checkBST(root);
             else return false;
 
         }
@@ -53,9 +57,11 @@ public class BST extends AbstractTree<BSTNode>{
             else if(val>current.getValue()) current = current.right;
             else{
                 vanish(current);
+                if(VALIDATE) Validator.checkBST(root);
                 return  true;
             }
         }
+        if(VALIDATE) Validator.checkBST(root);
         return false;
     }
     private void vanish(BSTNode node) {

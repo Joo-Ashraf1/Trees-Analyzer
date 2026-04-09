@@ -6,6 +6,10 @@ import static Enums.Color.Black;
 import static Enums.Color.Red;
 
 public class RBTree extends AbstractTree<RBNode> {
+    private static final boolean VALIDATE = Validator.VALIDATE;
+
+
+
     protected final RBNode Nil=new RBNode(0);
     public RBTree() {
         Nil.color= Black;
@@ -36,6 +40,7 @@ public class RBTree extends AbstractTree<RBNode> {
         z.color=Red;
         InsertFixUp(z);
         size++;
+        if (VALIDATE) Validator.checkRBT(root, Nil);
         return true;
     }
 
@@ -50,7 +55,8 @@ public class RBTree extends AbstractTree<RBNode> {
             if (isNil(z)) return false;
             deleteNode(z);
             size--;
-            return true;
+        if (VALIDATE) Validator.checkRBT(root, Nil);
+        return true;
 
     }
     private void deleteNode(RBNode z) {
