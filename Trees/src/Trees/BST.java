@@ -86,21 +86,7 @@ public class BST extends AbstractTree<BSTNode>{
 
         size--;
     }
-    //we take u replace it with this handles connection between daddy and node
-    private void transplant(BSTNode u, BSTNode v) {
-        if(isNil(u.parent)) root=v;
-        else if(u==u.parent.left) u.parent.left=v; //this two lines for parent connect
-        else u.parent.right=v;
-        if(!isNil(v))  v.parent = u.parent;
 
-    }
-
-    private BSTNode minimum(BSTNode node) {
-        while (!isNil(node.left)) {
-            node = node.left;
-        }
-        return node;
-    }
 
     @Override
     public boolean contains(int val) {

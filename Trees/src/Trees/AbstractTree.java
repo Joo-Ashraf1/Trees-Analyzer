@@ -43,6 +43,21 @@ public abstract class AbstractTree<N extends TreeNode<N>> implements TreeStructu
                 ,heightRecursive(node.right))
                 + 1;
         }
+    //we take u replace it with this handles connection between daddy and node
+    protected void transplant(N u, N v) {
+        if(isNil(u.parent)) root=v;
+        else if(u==u.parent.left) u.parent.left=v; //this two lines for parent connect
+        else u.parent.right=v;
+        if(!isNil(v))  v.parent = u.parent;
+
+    }
+
+    protected N minimum(N node) {
+        while (!isNil(node.left)) {
+            node = node.left;
+        }
+        return node;
+    }
     abstract protected boolean isNil(N node);
 
 }

@@ -27,6 +27,8 @@ public class RBTree extends AbstractTree<RBNode> {
             else return false;
         }
         RBNode z=new RBNode(val);
+        z.left=Nil;
+        z.right=Nil;
         z.parent=y;
         if(y==Nil) root=z;
         else if(z.getValue()<y.getValue()) y.left=z;
@@ -39,11 +41,124 @@ public class RBTree extends AbstractTree<RBNode> {
 
     @Override
     public boolean delete(int val) {
-        return false;
+            RBNode z = root;
+            while (!isNil(z)) {
+                if (val < z.getValue()) z = z.left;
+                else if (val > z.getValue()) z = z.right;
+                else break;
+            }
+            if (isNil(z)) return false;
+            deleteNode(z);
+            size--;
+            return true;
+
+    }
+    private void deleteNode(RBNode z) {
+            RBNode y = z;
+            Color yOriginalColor = y.color;
+            RBNode x;
+            if (isNil(z.left)) {
+                x = z.right;
+                transplant(z, z.right);
+            }
+            else if (isNil(z.right)) {
+                x = z.left;
+                transplant(z, z.left);
+            }
+            else {
+                y = minimum(z.right);
+                yOriginalColor = y.color;
+                x = y.right;
+                if (y.parent == z) {
+                    x.parent = y;
+                } else {
+                    transplant(y, y.right);
+                    y.right = z.right;
+                    y.right.parent = y;
+                }
+                transplant(z, y);
+                y.left = z.left;
+                y.left.parent = y;
+                y.color = z.color;
+            }
+
+            if (yOriginalColor == Black) {
+                deleteFixUp(x);
+            }
+    }
+    private void deleteFixUp(RBNode x) {
+        while(x!=root&&x.color==Black) {
+            if(x==x.parent.left) {
+                RBNode w=x.parent.right;
+                if(w.color==Red) { //case when sibling is red
+                    x.parent.color=Red;
+                    w.color=Black;
+                    LeftRotation(x.parent);
+                    w=x.parent.right;
+                }
+                else if(w.color==Black&&w.left.color==Black&&w.right.color==Black) {//case 2 DB is sibling
+                    w.color=Red;
+                    x=x.parent;
+                }
+                else{ //case 3 the far nephew is black
+                    if(w.right.color==Black&&w.left.color==Red) {
+                        w.left.color=Black;
+                        w.color=Red;
+                        RightRotation(w);
+                        w=x.parent.right;
+                    }
+                    w.color=x.parent.color;
+                    x.parent.color=Black;
+                    w.right.color=Black;
+                    LeftRotation(x.parent);
+                    x=root;
+
+                }
+
+
+            }
+            else{
+                // symmetric cases
+                RBNode w = x.parent.left;
+
+                if (w.color == Red) {
+                    w.color = Black;
+                    x.parent.color = Red;
+                    RightRotation(x.parent);
+                    w = x.parent.left;
+                }
+
+                if (w.right.color == Black && w.left.color == Black) {
+                    w.color = Red;
+                    x = x.parent;
+                }
+                else {
+                    if (w.left.color == Black) {
+                        w.right.color = Black;
+                        w.color = Red;
+                        LeftRotation(w);
+                        w = x.parent.left;
+                    }
+
+                    w.color = x.parent.color;
+                    x.parent.color = Black;
+                    w.left.color = Black;
+                    RightRotation(x.parent);
+                    x = root;
+                }
+            }
+        }
+        x.color=Black;
     }
 
     @Override
     public boolean contains(int val) {
+        RBNode x=root;
+        while (x!=Nil) {
+            if(x.getValue()==val) return true;
+            else if(x.getValue()<val) x=x.right;
+            else x=x.left;
+        }
         return false;
     }
     @Override
